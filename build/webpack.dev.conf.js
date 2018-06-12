@@ -4,7 +4,6 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
     baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
