@@ -2,7 +2,7 @@
  * @Author: Nundy
  * @Date: 2018-05-19 08:26:53
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-06-12 16:00:22
+ * @Last Modified time: 2018-06-12 16:41:49
  */
 
 /****************************************/
@@ -71,6 +71,6 @@ if (ENV_STATUS === 'development') {
 app.use(express.static(path.join(__dirname, 'views')))
 
 // 启动服务
-app.listen(() => console.info(`服务已经启动，监听端口${3000}`))
+app.listen(3000, () => console.info(`服务已经启动，监听端口3000`))
 
 module.exports = app
