@@ -18,6 +18,18 @@ const AccountModel = {
             if (err) throw err
             res.json(result)
         })
+    },
+    utils: {
+        checkId: async (reqData) => {
+            const sql = 'SELECT a_id FROM fen_account WHERE a_id=' + reqData.a_id
+            const data = await _connect(sql)
+            return data
+        },
+        getData: async (res, reqData) => {
+            const sql = `SELECT * FROM fen_account WHERE a_id='${reqData.a_id}' AND a_password='${reqData.a_password}'`
+            const data = await _connect(sql)
+            return data
+        }
     }
 }
 

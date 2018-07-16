@@ -81,7 +81,7 @@ export default {
     }
     /* header logo */
     .headerLogo{
-        display: inline-block;
+        display: block;
         float: left;
         font-size: 26px;
         font-weight: 700;
