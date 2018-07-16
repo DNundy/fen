@@ -3,19 +3,45 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-  state: {
+export default new Vuex.Store({
+    state: {
+        // 账户体系面板状态
+        accountStatus: {
+            loginDiv: false,
+            registerDiv: false,
+            forgetDiv: false,
+            loginStatus: false,
+        },
 
-  },
-  getters:{
+        // 账户信息
+        userInfo: {}
+    },
+    mutations: {
+        // 账户面板状态更改
+        accountPanel(state, data){
+            state.accountStatus[data.name] = data.status;
+        },
+        
+        // 登录账户
+        setUserInfo(state, data) {
+            for (var key in data) {
+                if (data.hasOwnProperty(key) === true) {
+                    state.userInfo[key] = data[key];
+                }
+            }
+            state.accountStatus.loginStatus = true;
+        },
 
-  },
-  mutations: {
+        // 退出登录
+        clearUserInfo(state){
+            state.userInfo={};
+            state.accountStatus.loginStatus = false;
+        },
+    },
+    actions: {
 
-  },
-  actions: {
-    
-  }
+    },
+    getters: {
+
+    },
 })
-
-export default store

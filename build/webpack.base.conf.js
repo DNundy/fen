@@ -13,7 +13,7 @@ const utils = {
 
 module.exports = {
     entry: {
-        app: './src/client/index.js'
+        app: './src/client/main.js'
     },
     resolve: {
     // 自动解析扩展
@@ -21,7 +21,7 @@ module.exports = {
         // 解析别名
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': utils.resolve('src')
+            '@': utils.resolve('src/client')
         }
     },
     module: {
