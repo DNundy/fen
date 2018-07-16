@@ -33,6 +33,20 @@ const AccountController = {
                 'msg': '密码输入错误'
             })
         }
+
+        // 账户是否被封锁a_blockade_time
+        const currentTime = Math.floor(new Date() / 1000)
+        const blockTime = accountData['a_blockade_time']
+        if (blockTime > currentTime) {
+            const date = Math.floor((blockTime - currentTime) / 86400)
+            const hour = Math.floor((blockTime - currentTime) % 86400 / 3600)
+            const minute = Math.floor((blockTime - currentTime) % 86400 % 3600 / 60)
+            res.json({
+                'code': -1,
+                'msg': `账号距封锁结束还有${date}天${hour}小时${minute}分`
+            })
+        }
+        res.json(blockTime)
     },
     register: (req, res) => {
         AccountModel.register(req, res)
