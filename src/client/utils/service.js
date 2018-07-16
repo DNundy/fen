@@ -1,14 +1,14 @@
 const service = {
     AccountLogin: {
-        url: '/api/Account/login',
+        url: '/api/index/Account/login',
         method: 'post'
     },
     AccountRegister: {
-        url: '/api/Account/register',
+        url: '/api/index/Account/register',
         method: 'post'
     },
     AccountRefresh: {
-        url: '/api/AccountInfo/refresh',
+        url: '/api/index/Account/refresh',
         method: 'post'
     }
 }

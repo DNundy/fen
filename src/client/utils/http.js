@@ -37,7 +37,6 @@ const http = (opts, data) => {
     // 默认配置
     let httpDefaultOpts = {
         method: opts.method,
-        baseURL: '/dsmall',
         url: opts.url,
         timeout: 5000,
         params: Object.assign(Public, data),
