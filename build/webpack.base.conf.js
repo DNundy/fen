@@ -13,7 +13,7 @@ const utils = {
 
 module.exports = {
     entry: {
-        app: './src/client/main.js'
+        app: './src/client/index.js'
     },
     resolve: {
     // 自动解析扩展

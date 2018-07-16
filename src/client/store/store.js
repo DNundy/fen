@@ -10,7 +10,7 @@ export default new Vuex.Store({
             loginDiv: false,
             registerDiv: false,
             forgetDiv: false,
-            loginStatus: false,
+            loginStatus: false
         },
 
         // 账户信息
@@ -18,30 +18,30 @@ export default new Vuex.Store({
     },
     mutations: {
         // 账户面板状态更改
-        accountPanel(state, data){
-            state.accountStatus[data.name] = data.status;
+        accountPanel(state, data) {
+            state.accountStatus[data.name] = data.status
         },
-        
+
         // 登录账户
         setUserInfo(state, data) {
             for (var key in data) {
                 if (data.hasOwnProperty(key) === true) {
-                    state.userInfo[key] = data[key];
+                    state.userInfo[key] = data[key]
                 }
             }
-            state.accountStatus.loginStatus = true;
+            state.accountStatus.loginStatus = true
         },
 
         // 退出登录
-        clearUserInfo(state){
-            state.userInfo={};
-            state.accountStatus.loginStatus = false;
-        },
+        clearUserInfo(state) {
+            state.userInfo = {}
+            state.accountStatus.loginStatus = false
+        }
     },
     actions: {
 
     },
     getters: {
 
-    },
+    }
 })
