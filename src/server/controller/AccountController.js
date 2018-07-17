@@ -78,14 +78,81 @@ const AccountController = {
         }
     },
     register: async (req, res) => {
-        AccountModel.register(req, res)
+        const reqData = {
+            'a_name': req.body.name,
+            'a_id': req.body.id,
+            'a_email': req.body.email,
+            'a_password': req.body.password
+        }
+
+        if (!reqData['a_name'] || !reqData['a_id'] || !reqData['a_email'] || !reqData['a_password']) {
+            res.json({
+                'code': -1,
+                'msg': '信息不能为空'
+            })
+        }
+
+        const haveName = await AccountModel.utils.checkName(reqData, res)
+        if (haveName) {
+            res.json({
+                'code': -1,
+                'msg': '该用户名已被使用'
+            })
+        }
+        const haveId = await AccountModel.utils.checkId(reqData)
+        if (haveId) {
+            res.json({
+                'code': -1,
+                'msg': '该手机号码已被使用'
+            })
+        }
+
+        const haveEmail = await AccountModel.utils.checkEmail(reqData)
+        if (haveEmail) {
+            res.json({
+                'code': -1,
+                'msg': '该邮箱已被使用'
+            })
+        }
+
+        const token = {
+            'accessToken': jwt.sign(reqData, 'accessToken'),
+            'refreshToken': jwt.sign(reqData, 'refreshToken')
+        }
+        const accountData = {
+            'a_name': reqData['a_name'],
+            'a_id': reqData['a_id'],
+            'a_email': reqData['a_email'],
+            'a_password': reqData['a_password'],
+            'a_auth': 0,
+            'a_access_token': token.accessToken,
+            'a_refresh_token': token.refreshToken
+        }
+        const sqlStatus = await AccountModel.register(accountData)
+        if (sqlStatus) {
+            res.json({
+                'code': 0,
+                'msg': '注册成功',
+                'data': {
+                    'a_name': reqData['a_name'],
+                    'a_id': reqData['a_id'],
+                    'a_email': reqData['a_email'],
+                    'a_auth': 0,
+                    'a_access_token': token.accessToken,
+                    'a_refresh_token': token.refreshToken
+                }
+            })
+        } else {
+            res.json({
+                'code': -1,
+                'msg': '抱歉，一个未知答错误发生了'
+            })
+        }
     },
     refresh: async (req, res) => {
         const reqData = {
             'refresh_token': req.headers['refresh_token']
         }
-
-        // 验证Token时效性
         const decoded = jwt.verify(reqData['refresh_token'])
         const currentTime = Math.floor(new Date() / 1000)
         if (decoded.data['exp'] < currentTime) {
@@ -94,8 +161,6 @@ const AccountController = {
                 'msg': 'Token已过期'
             })
         }
-
-        // 验证Token正确性
         const accountData = await AccountModel.utils.getToken(decoded.data)
         if (accountData['a_refresh_token'] !== reqData['refresh_token']) {
             res.json({
@@ -103,7 +168,6 @@ const AccountController = {
                 'msg': 'Token不匹配'
             })
         }
-
         const condition = {
             'accessToken': jwt.sign(accountData, 'accessToken'),
             'refreshToken': jwt.sign(accountData, 'refreshToken')
