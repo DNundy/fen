@@ -82,9 +82,8 @@ const AccountController = {
             'a_name': req.body.name,
             'a_id': req.body.id,
             'a_email': req.body.email,
-            'a_password': req.body.password
+            'a_password': md5(req.body.password)
         }
-
         if (!reqData['a_name'] || !reqData['a_id'] || !reqData['a_email'] || !reqData['a_password']) {
             res.json({
                 'code': -1,
@@ -138,8 +137,8 @@ const AccountController = {
                     'a_id': reqData['a_id'],
                     'a_email': reqData['a_email'],
                     'a_auth': 0,
-                    'a_access_token': token.accessToken,
-                    'a_refresh_token': token.refreshToken
+                    'access_token': token.accessToken,
+                    'refresh_token': token.refreshToken
                 }
             })
         } else {
