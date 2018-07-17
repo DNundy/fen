@@ -7,6 +7,10 @@ const service = {
         url: '/api/index/Account/register',
         method: 'post'
     },
+    AccountForget: {
+        url: '/api/index/Account/forget',
+        method: 'post'
+    },
     AccountRefresh: {
         url: '/api/index/Account/refresh',
         method: 'post'

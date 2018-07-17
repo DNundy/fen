@@ -148,6 +148,7 @@ const AccountController = {
             })
         }
     },
+    forget: async (req, res) => {},
     refresh: async (req, res) => {
         const reqData = {
             'refresh_token': req.headers['refresh_token']

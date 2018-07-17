@@ -12,7 +12,7 @@
                 <input type="email" placeholder="请输入电子邮箱" v-model="registerInfo.email"  @keyup="checkEmail">
                 <input type="password" placeholder="请输入登录密码" v-model="registerInfo.password"  @keyup="checkPwd">
                 <div class="tips" :class="{error:registerTips.error_status}">{{registerTips.error_tips}}</div>
-                <div class="submitBtn" @click="submitRegister">{{registerTips.submit_text}}</div>
+                <button class="submitBtn" :disabled="registerTips.submit_status" @click="submitRegister">{{registerTips.submit_text}}</button>
             </div>
             <div class="registerFoot">
                 <span>已有账号？</span>
@@ -40,7 +40,8 @@ export default {
                 error_status: false,
                 error_text: '注册账户很快呦！',
                 error_tips: '注册账户很快呦！',
-                submit_text: '立即登录'
+                submit_text: '立即登录',
+                submit_status: false
             },
         }
     },
@@ -123,6 +124,7 @@ export default {
             let status = this.checkName() && this.checkPhone() && this.checkEmail() &&this.checkPwd();
             if( status ){
                 this.registerTips.submit_text = "拼命注册ing..."
+                this.registerTips.submit_status=true;
                 this.$ajax(this.$service.AccountRegister, this.registerInfo)
                 .then((response) => {
                     let data = response.data;
@@ -135,10 +137,12 @@ export default {
                         this.registerTips.error_status = true;
                     }
                     this.registerTips.submit_text='立即注册';
+                    this.registerTips.submit_status=false;
                 }).catch((response) => {
                     this.registerTips.error_tips = '一个未知的错误发生了！';
                     this.registerTips.error_status = true;
                     this.registerTips.submit_text='立即注册';
+                    this.registerTips.submit_status=false;
                 })
             }
         },
@@ -243,6 +247,7 @@ export default {
         border-color: #307B8A;
     }
     .registerCont .submitBtn{
+        display: block;
         box-sizing: border-box;
         margin: 15px auto;
         text-align: center;

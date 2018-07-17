@@ -10,7 +10,7 @@
                 <input type="text" placeholder="请输入手机号码" v-model="loginInfo.id" @keyup="checkPhone">
                 <input type="password" placeholder="请输入登录密码" v-model="loginInfo.password"  @keyup="checkPwd">
                 <div class="tips" :class="{error:loginTips.error_status}">{{loginTips.error_tips}}</div>
-                <div class="submitBtn" @click="submitLogin">{{loginTips.submit_text}}</div>
+                <button class="submitBtn" :disabled="loginTips.submit_status" @click="submitLogin">{{loginTips.submit_text}}</button>
             </div>
             <div class="loginFoot">
                 <span>没有账号？</span>
@@ -37,7 +37,8 @@ export default {
             error_status: false,
             error_text: '欢迎登录FEN！',
             error_tips: '欢迎登录FEN！',
-            submit_text: '立即登录'
+            submit_text: '立即登录',
+            submit_status: false
         },
     }
   },
@@ -93,6 +94,7 @@ export default {
         submitLogin(){
             if(this.checkPhone() && this.checkPwd()){
                 this.loginTips.submit_text="拼命登陆ing...";
+                this.loginTips.submit_status=true;
                 this.$ajax(this.$service.AccountLogin, this.loginInfo)
                 .then((response)=>{
                     let data = response.data;
@@ -105,10 +107,12 @@ export default {
                         this.loginTips.error_status = true;
                     }
                     this.loginTips.submit_text="立即登录"
+                    this.loginTips.submit_status=false;
                 }).catch((err, errInfo)=>{
                     this.loginTips.error_tips = '网络请求错误';
                     this.loginTips.error_status = true;
                     this.loginTips.submit_text="立即登录"
+                    this.loginTips.submit_status=false;
                 })
             }
         },
@@ -214,6 +218,7 @@ export default {
         border-color: #307B8A;
     }
     .loginCont .submitBtn{
+        display: block;
         box-sizing: border-box;
         margin: 15px auto;
         text-align: center;

@@ -11,7 +11,7 @@
                 <input type="email" placeholder="请输入预留邮箱" v-model="forgetInfo.email"  @keyup="checkEmail">
                 <input type="password" placeholder="请输入新的密码" v-model="forgetInfo.password"  @keyup="checkPwd">
                 <div class="tips" :class="{error:forgetTips.error_status}">{{forgetTips.error_tips}}</div>
-                <div class="submitBtn" @click="submitForget">{{forgetTips.submit_text}}</div>
+                <button class="submitBtn" :disabled="forgetTips.submit_status" @click="submitForget">{{forgetTips.submit_text}}</button>
             </div>
             <div class="forgetFoot">
                 <span class="toLogin" @click="jumpTo('loginDiv')">返回登录</span>
@@ -37,7 +37,8 @@ export default {
                 error_status: false,
                 error_text: '别担心，账户很快就回来了！',
                 error_tips: '别担心，账户很快就回来了！',
-                submit_text: '立即登录'
+                submit_text: '立即找回',
+                submit_status: false
             }
         }
     },
@@ -63,46 +64,77 @@ export default {
 
 
         checkPhone: function () {
-            let result = validate.checkPhone(this.registerInfo.id);
+            let result = validate.checkPhone(this.forgetInfo.id);
             if( !result.status ){
-                this.registerTips.error_tips = result.msg;
-                this.registerTips.error_status = true;
+                this.forgetTips.error_tips = result.msg;
+                this.forgetTips.error_status = true;
                 return false;
             }
-            this.registerTips.error_status = false;
-            this.registerTips.error_tips = this.registerTips.error_text;
+            this.forgetTips.error_status = false;
+            this.forgetTips.error_tips = this.forgetTips.error_text;
             return true;
         },
         checkEmail: function () {
-            let result = validate.checkEmail(this.registerInfo.email);
+            let result = validate.checkEmail(this.forgetInfo.email);
             if( !result.status ){
-                this.registerTips.error_tips = result.msg;
-                this.registerTips.error_status = true;
+                this.forgetTips.error_tips = result.msg;
+                this.forgetTips.error_status = true;
                 return false;
             }
-            this.registerTips.error_status = false;
-            this.registerTips.error_tips = this.registerTips.error_text;
+            this.forgetTips.error_status = false;
+            this.forgetTips.error_tips = this.forgetTips.error_text;
             return true;
         },
         checkPwd: function () {
-            let result = validate.checkLength(this.registerInfo.password, 6, 16, '密码');
+            let result = validate.checkLength(this.forgetInfo.password, 6, 16, '密码');
             if( !result.status ){
                 if( result.type == -1 ){
-                    this.registerTips.error_tips = result.msg;
+                    this.forgetTips.error_tips = result.msg;
                 }else if ( result.type == 1 ){
-                    this.registerTips.error_tips = "密码是必须的哦！";
+                    this.forgetTips.error_tips = "密码是必须的哦！";
                 }
-                this.registerTips.error_status = true;
+                this.forgetTips.error_status = true;
                 return false;
             }
-            this.registerTips.error_status = false;
-            this.registerTips.error_tips = this.registerTips.error_text;
+            this.forgetTips.error_status = false;
+            this.forgetTips.error_tips = this.forgetTips.error_text;
             return true;
         },
 
         // 提交信息
         submitForget(){
-
+            let status = this.checkPhone() && this.checkEmail() &&this.checkPwd();
+            if( status ){
+                this.forgetTips.submit_text = "拼命找回ing..."
+                this.forgetTips.submit_status=true;
+                this.$ajax(this.$service.AccountForget, this.forgetInfo)
+                .then((response) => {
+                    let data = response.data;
+                    if( data.code == 0 ){
+                        this.forgetTips.error_tips = this.forgetTips.error_text;;
+                        this.forgetTips.error_status = false;
+                        // this.submitSuccess(data.data);
+                    }else if ( data.code == -1 ){
+                        this.forgetTips.error_tips = data.msg;
+                        this.forgetTips.error_status = true;
+                    }
+                    this.forgetTips.submit_text='立即找回';
+                    this.forgetTips.submit_status=false;
+                }).catch((response) => {
+                    this.forgetTips.error_tips = '一个未知的错误发生了！';
+                    this.forgetTips.error_status = true;
+                    this.forgetTips.submit_text='立即找回';
+                    this.forgetTips.submit_status=false;
+                })
+            }
+        },
+        submitSuccess(data){
+            // 设置全局信息
+            this.$store.commit('setUserInfo', data);
+            // 存储本地Token
+            storageUtil.setUserInfo(data);
+            // 关闭登录框
+            this.closeLoginDiv();
         }
     },
     computed: {
@@ -198,6 +230,7 @@ export default {
         border-color: #307B8A;
     }
     .forgetCont .submitBtn{
+        display: block;
         box-sizing: border-box;
         margin: 15px auto;
         text-align: center;
