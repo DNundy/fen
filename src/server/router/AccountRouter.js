@@ -14,5 +14,8 @@ AccountRouter.post('/forget', (req, res) => {
 AccountRouter.post('/refresh', (req, res) => {
     AccountController.refresh(req, res)
 })
+AccountRouter.get('/confirm', (req, res) => {
+    AccountController.confirm(req, res)
+})
 
 module.exports = AccountRouter

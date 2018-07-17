@@ -1,4 +1,5 @@
 const md5 = require('md5')
+const mailer = require('../config/mailer')
 const jwt = require('../utils/jwt')
 
 const AccountModel = require('../model/AccountModel')
@@ -28,7 +29,7 @@ const AccountController = {
         }
 
         // 账户密码匹配性验证
-        const accountData = await AccountModel.utils.getData(reqData)
+        const accountData = await AccountModel.utils.getDataByPwd(reqData)
         if (!accountData) {
             res.json({
                 'code': -1,
@@ -148,7 +149,92 @@ const AccountController = {
             })
         }
     },
-    forget: async (req, res) => {},
+    forget: async (req, res) => {
+        const currentTime = Math.floor(new Date() / 1000)
+        const reqData = {
+            'a_id': req.body.id,
+            'a_email': req.body.email,
+            'a_password': md5(req.body.password),
+            'currentTime': currentTime,
+            'exp': currentTime + 3600
+        }
+        if (!reqData['a_id'] || !reqData['a_email'] || !reqData['a_password']) {
+            res.json({
+                'code': -1,
+                'msg': '信息不能为空'
+            })
+        }
+
+        // 账户ID存在性验证
+        const haveId = await AccountModel.utils.checkId(reqData)
+        if (!haveId) {
+            res.json({
+                'code': -1,
+                'msg': '该账号不存在'
+            })
+        }
+
+        // 账户邮箱匹配性验证
+        const accountData = await AccountModel.utils.getDataByEmail(reqData)
+        if (!accountData) {
+            res.json({
+                'code': -1,
+                'msg': '邮箱输入错误'
+            })
+        }
+
+        const setStatus = await AccountModel.utils.setPwdTemp(reqData)
+        if (setStatus) {
+            mailer.sendTo(res, '2582004701@qq.com', reqData)
+        } else {
+            res.json({
+                'code': -1,
+                'msg': '抱歉，一个未知的错误发生了！'
+            })
+        }
+    },
+    confirm: async (req, res) => {
+        const reqData = {
+            'a_id': req.query.uid,
+            'a_password': req.query.pwd
+        }
+
+        // 判断失效时间
+        const currentTime = Math.floor(new Date() / 1000)
+        if (currentTime > req.query.exp) {
+            res.json({
+                'code': -1,
+                'msg': '抱歉，该链接已失效'
+            })
+        }
+
+        // 查询重置密码缓存并判断是否一致
+        const info = `${req.query.pwd}||${req.query.time}||${req.query.exp}`
+        const pwdTemp = await AccountModel.utils.getPwdTemp(reqData)
+        if (!pwdTemp) {
+            res.json({
+                'code': -1,
+                'msg': '抱歉，一个未知的错误发生了！'
+            })
+        }
+        if (pwdTemp['a_pwd_temp'] !== info) {
+            res.json({
+                'code': -1,
+                'msg': '该链接无效链接，请重新确认！'
+            })
+        }
+
+        // 最终更新操作
+        const sqlStatus = await AccountModel.forget(reqData)
+        if (sqlStatus) {
+            res.redirect('http://localhost:3000/#/tips?info="恭喜您，密码重置成功！"')
+        } else {
+            res.json({
+                'code': -1,
+                'msg': '抱歉，一个未知的错误发生了！'
+            })
+        }
+    },
     refresh: async (req, res) => {
         const reqData = {
             'refresh_token': req.headers['refresh_token']

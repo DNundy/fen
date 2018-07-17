@@ -111,9 +111,9 @@ export default {
                 .then((response) => {
                     let data = response.data;
                     if( data.code == 0 ){
-                        this.forgetTips.error_tips = this.forgetTips.error_text;;
+                        this.forgetTips.error_tips = this.forgetTips.error_text;
                         this.forgetTips.error_status = false;
-                        // this.submitSuccess(data.data);
+                        // this.closeForgetDiv();
                     }else if ( data.code == -1 ){
                         this.forgetTips.error_tips = data.msg;
                         this.forgetTips.error_status = true;
@@ -127,14 +127,6 @@ export default {
                     this.forgetTips.submit_status=false;
                 })
             }
-        },
-        submitSuccess(data){
-            // 设置全局信息
-            this.$store.commit('setUserInfo', data);
-            // 存储本地Token
-            storageUtil.setUserInfo(data);
-            // 关闭登录框
-            this.closeLoginDiv();
         }
     },
     computed: {
