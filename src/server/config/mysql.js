@@ -21,7 +21,7 @@ const dbFen = (sql, ...params) => {
                     reject(error)
                     return
                 }
-                resolve(res[0])
+                resolve(res)
                 connection.release()
             })
         })

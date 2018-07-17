@@ -6,10 +6,10 @@ AccountRouter.post('/login', (req, res) => {
     AccountController.login(req, res)
 })
 AccountRouter.post('/register', (req, res) => {
-    AccountController.login(req, res)
+    AccountController.register(req, res)
 })
 AccountRouter.post('/refresh', (req, res) => {
-    AccountController.login(req, res)
+    AccountController.refresh(req, res)
 })
 
 module.exports = AccountRouter
