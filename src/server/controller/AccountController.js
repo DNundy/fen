@@ -125,6 +125,7 @@ const AccountController = {
             'a_email': reqData['a_email'],
             'a_password': reqData['a_password'],
             'a_auth': 0,
+            'a_account_time': Math.floor(new Date() / 1000),
             'a_access_token': token.accessToken,
             'a_refresh_token': token.refreshToken
         }
