@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 
 const mailer = {
-    sendTo: (res, target, reqData) => {
+    sendTo: (res, reqData) => {
         const url = `http://localhost:3000/api/index/Account/confirm?uid=${reqData['a_id']}&pwd=${reqData['a_password']}&time=${reqData['currentTime']}&exp=${reqData['exp']}`
         const tpl = `
             <h1>这是一封来自FEN团队的重置密码邮件</h1>\n\n
@@ -12,7 +12,7 @@ const mailer = {
 
         const mailOptions = {
             from: '"FEN 团队" 3053915949@qq.com',
-            to: target,
+            to: `${reqData['a_email']}`,
             subject: '【重置密码】',
             html: tpl
         }

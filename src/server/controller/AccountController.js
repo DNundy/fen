@@ -186,7 +186,7 @@ const AccountController = {
 
         const setStatus = await AccountModel.utils.setPwdTemp(reqData)
         if (setStatus) {
-            mailer.sendTo(res, '2582004701@qq.com', reqData)
+            mailer.sendTo(res, reqData)
         } else {
             res.json({
                 'code': -1,
