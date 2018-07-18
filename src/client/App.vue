@@ -6,6 +6,7 @@
 
 <script>
 import qs from 'qs';
+import normalize from 'normalize.css'
 import storageUtil from '@/utils/storage';
 export default {
     name: 'App',
@@ -34,7 +35,7 @@ export default {
                     }
                 })
                 .catch(error=>{
-
+                    throw new Error('【Refresh Token】')
                 });
                 return;
             }
@@ -43,8 +44,6 @@ export default {
                 storageUtil.clearUserInfo();
                 return;
             }
-
-            return;
         },
     },
     mounted(){
@@ -54,6 +53,18 @@ export default {
 </script>
 
 <style>
+    body{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    #app{
+        background: #fafafa;
+    }
+    #app, #app a{
+        color: #595959;
+        font-family: 'Chinese Quote',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    }
     /* 选区设置 */
     ::selection {
         background: rgba(27,162,227,.2);
@@ -61,53 +72,62 @@ export default {
     }
     /* 滚动条设置 */
     ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px; }
+        width: 10px;
+        height: 10px;
+    }
 
     ::-webkit-scrollbar-button {
-    width: 0;
-    height: 0; }
+        width: 0;
+        height: 0;
+    }
 
     ::-webkit-scrollbar-button:start:increment, ::-webkit-scrollbar-button:end:decrement {
-    display: none; }
+        display: none;
+    }
 
     ::-webkit-scrollbar-corner {
-    display: block; }
+        display: block;
+    }
 
     ::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.2); }
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
 
     ::-webkit-scrollbar-thumb:hover {
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.5); }
+        background-color: rgba(0, 0, 0, 0.3);
+    }
 
     ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent; }
-
-    ::-webkit-scrollbar-track:hover {
-    background-color: rgba(0, 0, 0, 0.15); }
+        border-right: 1px solid transparent;
+        border-left: 1px solid transparent;
+    }
 
     ::-webkit-scrollbar-button:start {
-    width: 10px;
-    height: 10px;
-    background: url(./assets/scrollbar_arrow.png) no-repeat 0 0; }
+        width: 10px;
+        height: 10px;
+        background: url(./assets/scrollbar_arrow.png) no-repeat 0 0;
+    }
 
     ::-webkit-scrollbar-button:start:hover {
-    background: url(./assets/scrollbar_arrow.png) no-repeat -15px 0; }
+        background: url(./assets/scrollbar_arrow.png) no-repeat -15px 0;
+    }
 
     ::-webkit-scrollbar-button:start:active {
-    background: url(./assets/scrollbar_arrow.png) no-repeat -30px 0; }
+        background: url(./assets/scrollbar_arrow.png) no-repeat -30px 0;
+    }
 
     ::-webkit-scrollbar-button:end {
-    width: 10px;
-    height: 10px;
-    background: url(./assets/scrollbar_arrow.png) no-repeat 0 -18px; }
+        width: 10px;
+        height: 10px;
+        background: url(./assets/scrollbar_arrow.png) no-repeat 0 -18px;
+    }
 
     ::-webkit-scrollbar-button:end:hover {
-    background: url(./assets/scrollbar_arrow.png) no-repeat -15px -18px; }
+        background: url(./assets/scrollbar_arrow.png) no-repeat -15px -18px;
+    }
 
     ::-webkit-scrollbar-button:end:active {
-    background: url(./assets/scrollbar_arrow.png) no-repeat -30px -18px; }
+        background: url(./assets/scrollbar_arrow.png) no-repeat -30px -18px;
+    }
 </style>

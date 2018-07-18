@@ -104,12 +104,11 @@ export default {
         position: relative;
         
         width: 70px;
-        height: 45px;
+        height: 50px;
         line-height: 50px;
         text-align: center;
         margin: 0 20px;
         
-        color: #000;
         font-size: 14px;
         text-decoration: none;
     }
@@ -131,13 +130,13 @@ export default {
     .user-info{
         float: right;
         width: 200px;
-        height: 40px;
+        height: 50px;
         text-align: center;
         overflow: hidden;
     }
     .user-info span{
         font-size: 16px;
-        line-height: 40px;
+        line-height: 50px;
         color: #08B35F;
         cursor: pointer;
     }
