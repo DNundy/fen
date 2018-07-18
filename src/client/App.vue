@@ -65,6 +65,14 @@ export default {
         color: #595959;
         font-family: 'Chinese Quote',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
     }
+    .contentLayout{
+        width: 100%;
+    }
+    .content{
+        width: 1200px;
+        min-height: calc(100vh - 50px - 50px);
+        margin: 0 auto;
+    }
     /* 选区设置 */
     ::selection {
         background: rgba(27,162,227,.2);

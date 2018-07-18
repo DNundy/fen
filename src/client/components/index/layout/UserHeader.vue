@@ -1,6 +1,6 @@
 <template>
-    <div class="header">
-        <div class="headerWrap">
+    <div class="headerLayout">
+        <div class="header">
             <a href="/"><span class="headerLogo">FEN</span></a>
             <div class="headerList">
                 <a href="" class="active">寻购商品</a>
@@ -66,7 +66,7 @@ export default {
  
  
 <style scoped>
-    .header{
+    .headerLayout{
         box-sizing: border-box;
         width: 100%;
         height: 50px;
@@ -74,7 +74,7 @@ export default {
         box-shadow: 0 1px 2px 0 rgba(0,0,0,.06);
         text-decoration: none;
     }
-    .headerWrap{
+    .header{
         width: 1200px;
         margin: 0 auto;
         overflow: hidden;

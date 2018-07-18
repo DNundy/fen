@@ -1,6 +1,8 @@
 <template>
-    <div class="footer">
-        <p>Copyright © 2018 FEN All Rights Reserved</p>
+    <div class="footerLayout">
+        <div class="footer">
+            <p>Copyright © 2018 FEN All Rights Reserved</p>
+        </div>
     </div>
 </template>
 
@@ -13,12 +15,15 @@ export default {
 </script>
 
 <style scoped>
-    .footer{
-        box-sizing: border-box;
+    .footerLayout{
         width: 100%;
-        height: 50px;
         font-size: 14px;
         text-decoration: none;
+    }
+    .footer{
+        width: 1200px;
+        height: 50px;
+        margin: 0 auto;
         position: relative;
     }
     .footer p{

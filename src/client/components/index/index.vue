@@ -1,8 +1,8 @@
 <template>
     <div class="indexWrap">
         <user-header></user-header>
-        <div class="content">
-
+        <div class="contentLayout">
+            <div class="content"></div>
         </div>
         <user-footer></user-footer>
     </div>
@@ -25,7 +25,5 @@ export default {
 </script>
 
 <style scoped>
-    .content{
-        min-height: calc(100vh - 50px - 50px);
-    }
+
 </style>

@@ -1,7 +1,9 @@
 <template>
     <div class="indexWrap">
         <user-header></user-header>
-        aaaaaaaaa
+        <div class="contentLayout">
+            <div class="content"></div>
+        </div>
         <user-footer></user-footer>
     </div>
 </template>
