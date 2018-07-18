@@ -6,6 +6,7 @@ import adminRouter from './admin'
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [
         ...indexRouter,
         ...adminRouter

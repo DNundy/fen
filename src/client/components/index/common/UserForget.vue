@@ -113,7 +113,10 @@ export default {
                     if( data.code == 0 ){
                         this.forgetTips.error_tips = this.forgetTips.error_text;
                         this.forgetTips.error_status = false;
-                        // this.closeForgetDiv();
+                        this.closeForgetDiv();
+                        this.$alert('恭喜你，重置密码邮件发送成功，请前往邮箱进行确认', '重置邮件发送成功！', {
+                            confirmButtonText: '我知道了'
+                        });
                     }else if ( data.code == -1 ){
                         this.forgetTips.error_tips = data.msg;
                         this.forgetTips.error_status = true;

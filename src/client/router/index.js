@@ -11,5 +11,9 @@ export default [
         path: '/tips',
         name: 'Tips',
         component: tips
+    },
+    {
+        path: '*',
+        component: index
     }
 ]

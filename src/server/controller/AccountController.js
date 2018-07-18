@@ -228,7 +228,8 @@ const AccountController = {
         // 最终更新操作
         const sqlStatus = await AccountModel.forget(reqData)
         if (sqlStatus) {
-            res.redirect('http://localhost:3000/#/tips?info="恭喜您，密码重置成功！"')
+            const info = encodeURIComponent('恭喜您，密码重置成功！')
+            res.redirect(`http://localhost:3000/#/tips?info=${info}`)
         } else {
             res.json({
                 'code': -1,
