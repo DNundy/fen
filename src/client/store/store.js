@@ -14,7 +14,11 @@ export default new Vuex.Store({
         },
 
         // 账户信息
-        userInfo: {}
+        userInfo: {},
+
+        nav: {
+            active: 0
+        }
     },
     mutations: {
         // 账户面板状态更改

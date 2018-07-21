@@ -199,6 +199,7 @@ export default {
         margin: 0 auto;
         font-size: 14px;
         color:#307B8A;
+        line-height: 20px;
     }
     .loginCont .error{
         color:tomato;

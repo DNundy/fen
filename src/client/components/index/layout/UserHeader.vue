@@ -1,22 +1,51 @@
 <template>
     <div class="headerLayout">
         <div class="header">
-            <a href="/"><span class="headerLogo">FEN</span></a>
-            <div class="headerList">
-                <a href="" class="active">寻购商品</a>
-                <a href="">我要出售</a>
-                <a href="">个人空间</a>
-                <a href="">关于我们</a>
+            <a class="headerLogo" href="/"><img src="@/assets/logo.png"></a>
+            <el-input class="headerSearch" size='small' placeholder="输入想搜索的内容 . . ." prefix-icon="el-icon-search"></el-input>
+            <div class="headerNav">
+                <a href="" :class="nav.active===0?'active':''">首页</a>
+                <a href="" :class="nav.active===1?'active':''">发现</a>
+                <a href="" :class="nav.active===2?'active':''">纳新</a>
+                <a href="" :class="nav.active===2?'active':''">反馈</a>
             </div>
-            <div class="user-info">
-                <span v-if="!accountStatus.loginStatus">
-                        <span class="goLogin" @click="jumpTo('loginDiv')">登录</span>
-                        <span class="goRegister" @click="jumpTo('registerDiv')">&nbsp;&nbsp;注册</span>
+            <div class="headerOpt">
+                <span v-if="!accountStatus.loginStatus" class="loginTip">
+                    <span class="goLogin" @click="jumpTo('loginDiv')">登录</span>
+                    <span class="goRegister" @click="jumpTo('registerDiv')">&nbsp;&nbsp;注册</span>
                 </span>
-                <span v-else>
-                    <span>{{userInfo.a_name}}</span>
-                    <span class="outLogin" @click="loginOut">&nbsp;&nbsp;退出</span>
-                </span>
+                <div v-else class="optCont">
+                    <el-popover class="userAnother" placement="bottom" trigger="hover">
+                        <div class="optButton" slot="reference">
+                            <i class="el-icon-plus"></i>
+                        </div>
+                        <div class="optList">
+                            <div class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;个人主页</div>
+                        </div>
+                    </el-popover>
+                    <div class="userNotice">
+                        <i class="el-icon-bell"></i>
+                    </div>
+                    <el-popover class="userInfo" placement="bottom" trigger="hover">
+                        <div class="optButton" slot="reference">
+                            <img src="@/assets/pic_boy.png">
+                            <i class="el-icon-caret-bottom"></i>
+                        </div>
+                        <div class="optList">
+                            <div class="optListGroup borderBottom">
+                                <div>{{userInfo.a_name}}</div>
+                            </div>
+                            <div class="optListGroup borderBottom">
+                                <div class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;个人主页</div>
+                                <div class="linkHover"><i class="el-icon-star-off"></i>&nbsp;&nbsp;我的收藏</div>
+                            </div>
+                            <div class="optListGroup">
+                                <div class="linkHover"><i class="el-icon-setting"></i>&nbsp;&nbsp;设置</div>
+                                <div class="linkHover"  @click="loginOut"><i class="el-icon-sort"></i>&nbsp;&nbsp;退出</div>
+                            </div>
+                        </div>
+                    </el-popover>
+                </div>
             </div>
             <user-login></user-login>
             <user-register></user-register>
@@ -59,15 +88,16 @@ export default {
         },
         accountStatus: function (params) {
             return this.$store.state.accountStatus;
+        },
+        nav: function (params) {
+            return this.$store.state.nav;
         }
     }
 }
 </script>
- 
- 
+
 <style scoped>
     .headerLayout{
-        box-sizing: border-box;
         width: 100%;
         height: 50px;
         background: #fff;
@@ -76,43 +106,51 @@ export default {
     }
     .header{
         width: 1200px;
+        height: 50px;
         margin: 0 auto;
         overflow: hidden;
+        position: relative;
     }
     /* header logo */
-    .headerLogo{
-        display: block;
-        float: left;
-        font-size: 26px;
-        font-weight: 700;
-        color: #08B35F;
-        text-decoration: none;
-        line-height: 50px;
-        margin-left: 50px;
-        font-family: '楷体';
+    .headerLogo img{
+        width: 28px;
+        position: absolute;
+        top: 0;bottom: 0;left: 0;
+        margin: auto 0;
     }
-    /* header选项列表 */
-    .headerList{
-        float: left;
-        width: 600px;
+    /* header serarch */
+    .headerSearch{
+        display: inline-block;
+        width: 25%;
         height: 50px;
-        margin-left: 80px;
+        margin-left: 70px;
+        line-height: 50px;
     }
-    .headerList a{
+    /* header nav */
+    .headerNav{
+        display: inline-block;
+        width: 500px;
+        height: 50px;
+        vertical-align: top;
+    }
+    .headerNav .active{
+        color: #08B35F;
+    }
+    .headerNav a{
         display: block;
         float: left;
         position: relative;
-        
-        width: 70px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
         margin: 0 20px;
         
+        width: 60px;
+        height: 49px;
+        
         font-size: 14px;
+        line-height: 49px;
+        text-align: center;
         text-decoration: none;
     }
-    .headerList a:after{
+    .headerNav a:after{
         content: "";
         width: 0;
         height: 1px;
@@ -122,25 +160,72 @@ export default {
         left: 50%;
         transition: all .3s;
     }
-    .headerList a:hover:after{
+    .headerNav a:hover:after{
         left: 0%;
         width: 100%;
     }
-    /* 登录注册按钮 */
-    .user-info{
+    /* header option */
+    .headerOpt{
         float: right;
-        width: 200px;
+        width: 140px;
         height: 50px;
         text-align: center;
         overflow: hidden;
     }
-    .user-info span{
+    .headerOpt .loginTip{
         font-size: 16px;
         line-height: 50px;
         color: #08B35F;
         cursor: pointer;
     }
-    .user-info .outLogin{
-        color: crimson;
-    } 
+    .headerOpt .optCont{
+        display: flex;
+        display: -webkit-flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        border: #08B35F 1px;
+    }
+    /* 用户功能列表 */
+    .optCont div{
+        width: 35px;
+        cursor: pointer;
+        font-size: 17px;
+        line-height: 50px;
+    }
+    /* 用户个人内容 */
+    .userInfo{
+        width: 50px;
+        margin-left: 5px;
+        position: relative;
+    }
+    .userInfo div{
+        height: 50px;
+    }
+    .userInfo img{
+        width: 30px;
+        position: absolute;
+        left: 0;top: 0;bottom: 0;
+        margin: auto 0;
+    }
+    .userInfo i{
+        position: absolute;
+        right: 0;
+        line-height: 50px;
+    }
+    .userInfo i::before{
+        color: #aaa;
+        font-size: 12px;
+    }
+    .optListGroup div{
+        line-height: 45px;
+    }
+    .linkHover:hover{
+        cursor: pointer;
+        color:mediumseagreen;
+    }
+    .borderBottom{
+        border-bottom: 1px solid #eee;
+    }
 </style>

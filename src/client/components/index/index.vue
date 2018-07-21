@@ -2,7 +2,8 @@
     <div class="indexWrap">
         <user-header></user-header>
         <div class="contentLayout">
-            <div class="content"></div>
+            <div class="content">
+            </div>
         </div>
         <user-footer></user-footer>
     </div>

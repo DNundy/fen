@@ -53,17 +53,12 @@ export default {
 </script>
 
 <style>
-    body{
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+    body, a{
+        color: #595959;
+        font-family: 'Chinese Quote',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
     }
     #app{
         background: #fafafa;
-    }
-    #app, #app a{
-        color: #595959;
-        font-family: 'Chinese Quote',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
     }
     .contentLayout{
         width: 100%;
