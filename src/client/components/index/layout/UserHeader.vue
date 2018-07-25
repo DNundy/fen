@@ -7,7 +7,7 @@
                 <a href="" :class="nav.active===0?'active':''">首页</a>
                 <a href="" :class="nav.active===1?'active':''">发现</a>
                 <a href="" :class="nav.active===2?'active':''">纳新</a>
-                <a href="" :class="nav.active===2?'active':''">反馈</a>
+                <a href="" :class="nav.active===3?'active':''">反馈</a>
             </div>
             <div class="headerOpt">
                 <span v-if="!accountStatus.loginStatus" class="loginTip">
@@ -20,7 +20,7 @@
                             <i class="el-icon-plus"></i>
                         </div>
                         <div class="optList">
-                            <div class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;个人主页</div>
+                            <div class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;新建文档</div>
                         </div>
                     </el-popover>
                     <div class="userNotice">
