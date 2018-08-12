@@ -1,9 +1,14 @@
 <template>
-    <div class="indexWrap">
+    <div class="personalWrap">
         <user-header></user-header>
         <div class="contentLayout">
             <div class="content">
-                index
+                <div class="personalLeft">
+                    
+                </div>
+                <div class="personalRight">
+
+                </div>
             </div>
         </div>
         <user-footer></user-footer>
@@ -27,5 +32,11 @@ export default {
 </script>
 
 <style scoped>
+    .personalLeft{
+        width: 245px;
+        background: red;
+    }
+    .personalRight{
 
+    }
 </style>

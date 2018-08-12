@@ -1,5 +1,5 @@
 <template>
-    <div class="indexWrap">
+    <div class="tipsWrap">
         <user-header></user-header>
         <div class="contentLayout">
             <div class="content">{{tipsInfo}}</div>

@@ -57,6 +57,9 @@ export default {
         color: #595959;
         font-family: 'Chinese Quote',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Helvetica Neue',Helvetica,Arial,sans-serif;
     }
+    a{
+        text-decoration-line: none;
+    }
     #app{
         background: #fafafa;
     }
@@ -64,9 +67,9 @@ export default {
         width: 100%;
     }
     .content{
-        width: 1200px;
-        min-height: calc(100vh - 50px - 50px);
-        margin: 0 auto;
+        width: 1080px;
+        min-height: calc(100vh - 50px - 50px - 30px);
+        margin: 15px auto;
     }
     /* 选区设置 */
     ::selection {

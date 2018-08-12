@@ -1,9 +1,9 @@
 <template>
-    <div class="indexWrap">
+    <div class="collectWrap">
         <user-header></user-header>
         <div class="contentLayout">
             <div class="content">
-                index
+                collect
             </div>
         </div>
         <user-footer></user-footer>

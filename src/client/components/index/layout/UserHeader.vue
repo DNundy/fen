@@ -1,13 +1,13 @@
 <template>
     <div class="headerLayout">
         <div class="header">
-            <a class="headerLogo" href="/"><img src="@/assets/logo.png"></a>
+            <router-link class="headerLogo" to="/"><img src="@/assets/logo.png"></router-link>
             <el-input class="headerSearch" size='small' placeholder="输入想搜索的内容 . . ." prefix-icon="el-icon-search"></el-input>
             <div class="headerNav">
-                <a href="" :class="nav.active===0?'active':''">首页</a>
-                <a href="" :class="nav.active===1?'active':''">发现</a>
-                <a href="" :class="nav.active===2?'active':''">纳新</a>
-                <a href="" :class="nav.active===3?'active':''">反馈</a>
+                <router-link to="" :class="nav.active===0?'active':''">首页</router-link>
+                <router-link to="" :class="nav.active===1?'active':''">发现</router-link>
+                <router-link to="" :class="nav.active===2?'active':''">纳新</router-link>
+                <router-link to="" :class="nav.active===3?'active':''">反馈</router-link>
             </div>
             <div class="headerOpt">
                 <span v-if="!accountStatus.loginStatus" class="loginTip">
@@ -36,8 +36,8 @@
                                 <div>{{userInfo.a_name}}</div>
                             </div>
                             <div class="optListGroup borderBottom">
-                                <div class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;个人主页</div>
-                                <div class="linkHover"><i class="el-icon-star-off"></i>&nbsp;&nbsp;我的收藏</div>
+                                <div><router-link to="/personal" class="linkHover"><i class="el-icon-service"></i>&nbsp;&nbsp;个人主页</router-link></div>
+                                <div><router-link to="/collect" class="linkHover"><i class="el-icon-star-off"></i>&nbsp;&nbsp;我的收藏</router-link></div>
                             </div>
                             <div class="optListGroup">
                                 <div class="linkHover"><i class="el-icon-setting"></i>&nbsp;&nbsp;设置</div>
